@@ -1,16 +1,9 @@
-const add = require('./utils.js')
+const validator = require('validator')
 
-const sum = add(4, -2)
+console.log(validator.isEmail('cagriorskaya@hotmail.com'))
+console.log(validator.isEmail('cagriorskaya.com'))
+console.log(validator.isURL('https://google.com'))
+console.log(validator.isURL('https:/google.com'))
 
-console.log(sum)
-
-// Challenge : Define and use a function in a new file
-//
-// 1) Create a new file called notes.js
-// 2) Create getNotes function that return "Your notes..."
-// 3) Export getNotes function
-// 4) From app.js, load in call the function printing message to console
-
-const getNotes = require('./notes.js')
-
-console.log(getNotes())
+// const getNotes = require('./notes.js')
+// console.log(getNotes())
