@@ -1,16 +1,20 @@
 const chalk = require('chalk')
 const yargs = require('yargs')
-const getNotes = require('./notes.js')
+const { removeNote } = require('./notes.js')
+const notes = require('./notes.js')
+
+// Challenge: Setup command option and function
+//
+// 1) Setup the remove command to take a required "--title" option
+// 2) Create and export a removeNote function from notes.js
+// 3) Wire up removeNote
+// 4) Call removeNote in remove command handler
+// 5) Test your work using: node.js remove --title="some title"
+// 6) If a note is removed, print "Note removed!" with a green background
+// 7) If no note is removed, print "No note found!" with a red backround
 
 // Customize yargs version
 yargs.version('1.1.0')
-
-// Challenge 2: Add an option to yargs
-//
-// 1) Setup a body option for the add command
-// 2) Configure a description, make it required, and force it to be a string
-// 3) Log the body value in the handler function
-// 4) Test your work!
 
 // Create add command
 yargs.command({
@@ -29,8 +33,7 @@ yargs.command({
     }
   },
   handler: function (argv) {
-    console.log('Title: ' + argv.title)
-    console.log('Body: ' + argv.body)
+    notes.addNote(argv.title, argv.body)
   }
 })
 
@@ -38,16 +41,17 @@ yargs.command({
 yargs.command({
   command: 'remove',
   describe: 'Remove a note',
-  handler: function () {
-    console.log('Removing the note...')
+  builder: {
+    title: {
+      describe: 'Note title',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler: function (argv) {
+    notes.removeNote(argv.title)
   }
 })
-
-// Challenge 1: Add two new commands
-//
-// 1) Setup command to suppert "list" command (print placeholder message for now)
-// 2) Setup command to support "read" command (print placeholder message for now)
-// 3) Test your work by running both commands and ensure correct output
 
 yargs.command({
   command: 'list',
@@ -66,5 +70,3 @@ yargs.command({
 })
 
 yargs.parse()
-
-// console.log(yargs.argv)
