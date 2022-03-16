@@ -1,17 +1,5 @@
-const chalk = require('chalk')
 const yargs = require('yargs')
-const { removeNote } = require('./notes.js')
 const notes = require('./notes.js')
-
-// Challenge: Wire up read command
-//
-// 1) Setup --title option for read command
-// 2) Create readNote in notes.js
-// - Search for note by title
-// - Find note and print title (styled) and body (plain)
-// - No note found? Print error in red.
-// 3) Have the command handler call the function
-// 4) Test your work by running a couple commands
 
 // Customize yargs version
 yargs.version('1.1.0')
