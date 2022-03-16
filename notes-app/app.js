@@ -3,15 +3,11 @@ const yargs = require('yargs')
 const { removeNote } = require('./notes.js')
 const notes = require('./notes.js')
 
-// Challenge: Setup command option and function
+// Challenge: Refactor all functions
 //
-// 1) Setup the remove command to take a required "--title" option
-// 2) Create and export a removeNote function from notes.js
-// 3) Wire up removeNote
-// 4) Call removeNote in remove command handler
-// 5) Test your work using: node.js remove --title="some title"
-// 6) If a note is removed, print "Note removed!" with a green background
-// 7) If no note is removed, print "No note found!" with a red backround
+// 1) If function is a method, use ES6 method definition syntax
+// 2) Otherwise, use most concise arrow function possible
+// 3) Test your work!
 
 // Customize yargs version
 yargs.version('1.1.0')
@@ -32,7 +28,7 @@ yargs.command({
       type: 'string'
     }
   },
-  handler: function (argv) {
+  handler(argv) {
     notes.addNote(argv.title, argv.body)
   }
 })
@@ -48,7 +44,7 @@ yargs.command({
       type: 'string'
     }
   },
-  handler: function (argv) {
+  handler(argv) {
     notes.removeNote(argv.title)
   }
 })
@@ -56,7 +52,7 @@ yargs.command({
 yargs.command({
   command: 'list',
   describe: 'List notes',
-  handler: function () {
+  handler() {
     console.log('Listing the notes...')
   }
 })
@@ -64,7 +60,7 @@ yargs.command({
 yargs.command({
   command: 'read',
   describe: 'Read a note',
-  handler: function () {
+  handler() {
     console.log('Reading the note...')
   }
 })
