@@ -1,5 +1,6 @@
 const request = require('request')
 const chalk = require('chalk')
+const geocode = require('./utils/geocode')
 
 const weatherStackURL = 'http://api.weatherstack.com/current?access_key=41f301fcb12814c43c6c6ee56fb801f1&query=37.8267,-112.4233'
 
@@ -23,15 +24,10 @@ request({ url: weatherStackURL, json: true }, (error, response) => {
   }
 })
 
-const geoCodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY2FncmlvcnNrYXlhIiwiYSI6ImNsMHV3Z3h1dDAwcTYzY3FsZXdjbmk0Ym0ifQ.55iZsoB63UqMKPgUcLim1w&limit=1'
-
-request({ url: geoCodeURL, json: true }, (error, response) => {
+geocode('Istanbul', (error, ...data) => {
   if (error) {
-    console.log(chalk.red('Unable to connect to location services'))
-  } else if (response.body.features.length === 0) {
-    console.log(chalk.red('Unable to find location'))
+    console.log(error)
   } else {
-    const [long, lat] = response.body.features[0].center
-    console.log(lat, long)
+    data.forEach(data => console.log(data))
   }
 })
