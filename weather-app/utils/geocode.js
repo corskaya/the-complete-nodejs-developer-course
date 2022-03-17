@@ -12,8 +12,11 @@ const geocode = (address, callback) => {
       const data = chalk.red('Unable to find location')
       callback(data, undefined)
     } else {
-      const [long, lat] = response.body.features[0].center
-      callback(undefined, lat, long)
+      callback(undefined, {
+        latitude: response.body.features[0].center[0],
+        longitude: response.body.features[0].center[1],
+        location: response.body.features[0].place_name
+      })
     }
   })
 }
