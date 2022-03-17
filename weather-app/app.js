@@ -25,13 +25,6 @@ request({ url: weatherStackURL, json: true }, (error, response) => {
 
 const geoCodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY2FncmlvcnNrYXlhIiwiYSI6ImNsMHV3Z3h1dDAwcTYzY3FsZXdjbmk0Ym0ifQ.55iZsoB63UqMKPgUcLim1w&limit=1'
 
-// Challenge: Handle errors for geocoding request
-// 
-// 1) Setup an error handler for low-level errors
-// 2) Test by disabling network request and running the app
-// 3) Setup error handler for no matching results
-// 4) Test by altering the search term and running the app
-
 request({ url: geoCodeURL, json: true }, (error, response) => {
   if (error) {
     console.log(chalk.red('Unable to connect to location services'))
