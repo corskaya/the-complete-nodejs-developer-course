@@ -1,28 +1,20 @@
 const express = require('express')
+const path = require('path')
+
+console.log(__dirname) // directory name
+console.log(path.join(__dirname, '../public'))
 
 const app = express()
+const publicDirectoryPath = path.join(__dirname, '../public')
 
-app.get('', (req, res) => {
-  res.send('<h1>Weather</h1>')
-})
+app.use(express.static(publicDirectoryPath))
 
-app.get('/help', (req, res) => {
-  res.send({
-    name: 'Cagri',
-    age: 27
-  })
-})
-
-// Challenge: Update routes
+// Challenge: Create two more HTML files
 //
-// 1) Setup about route to render a title with HTML
-// 2) Setup a weather route to send back JSON
-//   - Object with forecast and location strings
-// 3) Test your work by visiting both in the browser
-
-app.get('/about', (req, res) => {
-  res.send('<h1>About</h1>')
-})
+// 1) Create a html page for about with "About" title
+// 2) Create a html page for help with "Help" title
+// 3) Remove the old route handlers for both
+// 4) Visit both in the browser to test your work
 
 app.get('/weather', (req, res) => {
   res.send({
