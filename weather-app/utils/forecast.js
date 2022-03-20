@@ -13,6 +13,7 @@ const forecast = (latitude, longitude, callback) => {
       const current = body.current
       const temperature = current.temperature
       const feelsLike = current.feelslike
+      console.log(current)
 
       callback(undefined, chalk.green(`It is currently ${temperature} degrees out. It feels like ${feelsLike} degrees.`))
     }
