@@ -2,12 +2,6 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 
-// Challenge: Create a partial for the footer
-//
-// 1) Setup the template for the footer partial "Created by Some Name"
-// 2) Render the partial at the bottom of all three pages
-// 3) Test your work by visiting all three pages
-
 const app = express()
 
 // Define paths for Express config
@@ -25,7 +19,7 @@ app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
   res.render('index', { // string parameter matches with index.hbs inside views folder
-    title: 'Weather App',
+    title: 'Weather',
     name: 'Cagri Orskaya'
   })
 })
@@ -51,15 +45,6 @@ app.get('/weather', (req, res) => {
     location: 'Istanbul'
   })
 })
-
-// Challenge: Create and render a 404 page with handlebars
-//
-// 1) Setup the template to render the header and footer
-// 2) Setup the template to render an error message in a paragraph
-// 3) Render the template for both 404 routes
-// - Page not found.
-// - Help article not found.
-// 4) Test your work. Visit /what and /help/unites
 
 app.get('/help/*', (req, res) => {
   res.render('404', {
