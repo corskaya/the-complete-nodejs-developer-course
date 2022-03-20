@@ -52,6 +52,31 @@ app.get('/weather', (req, res) => {
   })
 })
 
+// Challenge: Create and render a 404 page with handlebars
+//
+// 1) Setup the template to render the header and footer
+// 2) Setup the template to render an error message in a paragraph
+// 3) Render the template for both 404 routes
+// - Page not found.
+// - Help article not found.
+// 4) Test your work. Visit /what and /help/unites
+
+app.get('/help/*', (req, res) => {
+  res.render('404', {
+    title: '404',
+    name: 'Cagri Orskaya',
+    errorMessage: 'Help article not found'
+  })
+})
+
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: '404',
+    name: 'Cagri Orskaya',
+    errorMessage: 'Page not found'
+  })
+})
+
 app.listen(3000, () => {
   console.log('Server is up on port 3000')
 })
