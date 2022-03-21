@@ -1,23 +1,30 @@
-// Challenge: Use input value to get weather
-//
-// 1) Migrate fetch call into the submit callback
-// 2) Use the search text as the address query string value
-// 3) Submit the form with a valid and invalid value to test
-
 const weatherForm = document.querySelector('form')
 const search = document.querySelector('input')
+const locationMessage = document.querySelector('#location-message')
+const forecastMessage = document.querySelector('#forecast-message')
+
+// Challenge: Render content to paragraphs
+//
+// 1) Select the second message p from JavaScript
+// 2) Just before fetch, render loading message and empty p
+// 3) If error, render error
+// 4) If no error, render location and forecast
+// 5) Test your work! Search for errors and for valid locations
 
 weatherForm.addEventListener('submit', e => {
   e.preventDefault()
   const location = search.value
 
+  locationMessage.textContent = 'loading...'
+  forecastMessage.textContent = ''
+
   fetch(`http://localhost:3000/weather?address=${location}`).then(response => {
     response.json().then(data => {
       if (data.error) {
-        console.log(data.error)
+        locationMessage.textContent = data.error
       } else {
-        console.log(data.forecast)
-        console.log(data.location)
+        locationMessage.textContent = data.location
+        forecastMessage.textContent = data.forecast
       }
     })
   })
