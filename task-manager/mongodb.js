@@ -1,7 +1,6 @@
 // CRUD create read update delete
 
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+const { MongoClient, ObjectId } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
@@ -13,60 +12,41 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
   const db = client.db(databaseName)
 
-  // db.collection('users').insertOne({
-  //   name: 'Cagri',
-  //   age: 23
-  // }, (error, result) => {
+  // db.collection('users').findOne({ _id: new ObjectId("623acfd4fb9b6e6d835e610b") }, (error, user) => {
   //   if (error) {
-  //     return console.log('Unable to insert user')
+  //     return console.log('Unable to fetch')
   //   }
 
-  //   console.log(result.insertedId)
+  //   console.log(user)
   // })
 
-  // db.collection('users').insertMany([
-  //   {
-  //     name: 'Hakan',
-  //     age: 35
-  //   },
-  //   {
-  //     name: 'Hande',
-  //     age: 31
-  //   }
-  // ], (error, result) => {
-  //   if (error) {
-  //     return console.log('Unable to insert documents!')
-  //   }
-
-  //   console.log(result.insertedIds)
+  // db.collection('users').find({ age: 23 }).toArray((error, users) => {
+  //   console.log(users)
   // })
 
-  // Challenge: Insert 3 tasks into a new tasks collection
+  // db.collection('users').countDocuments({ age: 23 }, (error, count) => {
+  //   console.log(count)
+  // })
+
+  // Challenge: Use find and findOne with tasks
   //
-  // 1) Use insertMany to insert three documents
-  // - description (string), completed (boolean)
-  // 2) Setup the callback to handle error or print insertedIds
-  // 3) Run the script
-  // 4) Refresh the database in Robo 3t and view data in tasks collection
+  // 1) Use findOne to fetch the last task by its id (print doc to console)
+  // 2) Use find to fetch all tasks that are not completed (print docs to console)
+  // 3) Test your work!
 
-  db.collection('tasks').insertMany([
-    {
-      description: 'task one',
-      completed: false
-    },
-    {
-      description: 'task two',
-      completed: true
-    },
-    {
-      description: 'task three',
-      completed: false
-    }
-  ], (error, result) => {
+  db.collection('tasks').findOne({ _id: new ObjectId("623afb63093c69fd2835c76a") }, (error, task) => {
     if (error) {
-      return console.log('Unable to insert tasks')
+      return console.log('Unable to fetch task!')
     }
 
-    console.log(result.insertedIds)
+    console.log(task)
+  })
+
+  db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+    if (error) {
+      return console.log('Unable to fetch tasks!')
+    }
+
+    console.log(tasks)
   })
 })
