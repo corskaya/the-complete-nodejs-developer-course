@@ -12,41 +12,46 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
   const db = client.db(databaseName)
 
-  // db.collection('users').findOne({ _id: new ObjectId("623acfd4fb9b6e6d835e610b") }, (error, user) => {
-  //   if (error) {
-  //     return console.log('Unable to fetch')
-  //   }
-
-  //   console.log(user)
-  // })
-
-  // db.collection('users').find({ age: 23 }).toArray((error, users) => {
-  //   console.log(users)
-  // })
-
-  // db.collection('users').countDocuments({ age: 23 }, (error, count) => {
-  //   console.log(count)
-  // })
-
-  // Challenge: Use find and findOne with tasks
-  //
-  // 1) Use findOne to fetch the last task by its id (print doc to console)
-  // 2) Use find to fetch all tasks that are not completed (print docs to console)
-  // 3) Test your work!
-
-  db.collection('tasks').findOne({ _id: new ObjectId("623afb63093c69fd2835c76a") }, (error, task) => {
-    if (error) {
-      return console.log('Unable to fetch task!')
+  db.collection('users').updateOne({
+    _id: new ObjectId("623acfd4fb9b6e6d835e610b")
+  }, {
+    $set: {
+      name: 'Boran' // sets the name property to 'Boran
     }
-
-    console.log(task)
+  }).then(result => {
+    console.log(result)
+  }).catch(error => {
+    console.log(error)
   })
 
-  db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-    if (error) {
-      return console.log('Unable to fetch tasks!')
+  db.collection('users').updateOne({
+    _id: new ObjectId("623acfd4fb9b6e6d835e610b")
+  }, {
+    $inc: {
+      age: 1 // increments the age property by 1
     }
+  }).then(result => {
+    console.log(result)
+  }).catch(error => {
+    console.log(error)
+  })
 
-    console.log(tasks)
+  // Challenge: Use updateMany to complete all tasks
+  //
+  // 1) Check the documentation for updateMany
+  // 2) Setup the call with the query and the updates
+  // 3) Use promise methods to setup the success/error handlers
+  // 4) Test your work!
+
+  db.collection('tasks').updateMany({
+    completed: false
+  }, {
+    $set: {
+      completed: true
+    }
+  }).then(result => {
+    console.log(result)
+  }).catch(error => {
+    console.log(error)
   })
 })
