@@ -14,22 +14,14 @@ app.listen(port, () => {
   console.log(`Server is up on port ${port}`)
 })
 
-const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const myFunction = async () => {
-  const password = 'Red12345!'
+  const token = jwt.sign({ _id: 'abc123' }, 'thisissignaturetext', { expiresIn: '7 days' })
+  console.log(token)
 
-  // hashing is not reversable
-  const hashedPassword = await bcrypt.hash(password, 8) // 8 is the recommended number for hashing algorithm
-
-  console.log(password)
-  console.log(hashedPassword)
-
-  const isMatch = await bcrypt.compare('Red12345!', hashedPassword) // prints true
-  const isMatch2 = await bcrypt.compare('red12345!', hashedPassword) // prints false
-
-  console.log(isMatch)
-  console.log(isMatch2)
+  const data = jwt.verify(token, 'thisissignaturetext')
+  console.log(data)
 }
 
 myFunction()
