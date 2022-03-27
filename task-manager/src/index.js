@@ -18,10 +18,10 @@ const jwt = require('jsonwebtoken')
 
 const myFunction = async () => {
   const token = jwt.sign({ _id: 'abc123' }, 'thisissignaturetext', { expiresIn: '7 days' })
-  console.log(token)
+  // console.log(token)
 
   const data = jwt.verify(token, 'thisissignaturetext')
-  console.log(data)
+  // console.log(data)
 }
 
 myFunction()
