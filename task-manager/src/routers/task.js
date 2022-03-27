@@ -38,6 +38,13 @@ router.get('/tasks/:id', async (req, res) => {
   }
 })
 
+// Challenge: Change how tasks are updated
+//
+// 1) Find the task
+// 2) Alter the task properties
+// 3) Save the task
+// 4) Test your work by updating a task from Postman
+
 router.patch('/tasks/:id', async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['description', 'completed']
@@ -48,7 +55,15 @@ router.patch('/tasks/:id', async (req, res) => {
   }
 
   try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    const task = await Task.findById(req.params.id)
+
+    updates.forEach(update => task[update] = req.body[update])
+
+    await task.save()
+
+    // These 3 lines above do the same thing with Task.findByIdAndUpdate method
+
+    // const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
 
     if (!task) {
       return res.status(404).send()
