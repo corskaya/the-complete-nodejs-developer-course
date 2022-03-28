@@ -14,15 +14,9 @@ const port = process.env.PORT || 3000
 //   }
 // })
 
-// Challenge: Setup middleware for maintenance mode
-//
-// 1) Register a new middleware function
-// 2) Send back a maintenance message with a 503 status code
-// 3) Try your requests from the server and confirm status/message shows
-
-app.use((req, res, next) => {
-  res.status(503).send('Server is on maintenance mode')
-})
+// app.use((req, res, next) => {
+//   res.status(503).send('Server is on maintenance mode')
+// })
 
 app.use(express.json()) // automatically parse the incoming json data
 app.use(userRouter)
