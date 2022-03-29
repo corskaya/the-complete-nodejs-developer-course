@@ -48,6 +48,8 @@ const userSchema = new mongoose.Schema({
       required: true
     }
   }]
+}, {
+  timestamps: true
 })
 
 // This is like a property of userSchema, but virtual
