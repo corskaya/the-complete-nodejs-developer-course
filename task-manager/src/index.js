@@ -21,8 +21,12 @@ const upload = multer({
     cb(undefined, true)
   }
 })
+
+// Multer's error handling structure
 app.post('/upload', upload.single('upload'), (req, res) => {
   res.send()
+}, (error, req, res, next) => {
+  res.status(400).send({ error: error.message })
 })
 
 app.use(express.json()) // automatically parse the incoming json data
