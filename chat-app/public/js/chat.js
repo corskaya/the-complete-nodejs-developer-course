@@ -1,8 +1,13 @@
 const socket = io();
 const messageForm = document.querySelector("#messageForm");
+const sendLocation = document.querySelector("#sendLocation");
 
 socket.on("message", (message) => {
   console.log(message, "--socket--");
+});
+
+socket.on("location", (location) => {
+  console.log(location, "--socket--");
 });
 
 messageForm.addEventListener("submit", (e) => {
@@ -10,4 +15,15 @@ messageForm.addEventListener("submit", (e) => {
   const message = e.target.messageInput.value;
 
   socket.emit("sendMessage", message);
+});
+
+sendLocation.addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    return alert("Your browser does not support geolocation");
+  }
+
+  navigator.geolocation.getCurrentPosition((position) => {
+    const { latitude, longitude } = position.coords;
+    socket.emit("sendLocation", { latitude, longitude });
+  });
 });
