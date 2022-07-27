@@ -20,9 +20,13 @@ io.on("connection", (socket) => {
   console.log("New WebSocket connection");
 
   socket.emit("message", welcomeMessage);
+  socket.broadcast.emit("message", "A new user has joined.");
 
   socket.on("sendMessage", (message) => {
-    // socket.emit("countUpdated", count);
     io.emit("message", message);
+  });
+
+  socket.on("disconnect", () => {
+    io.emit("message", "A user has left.");
   });
 });
