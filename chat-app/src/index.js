@@ -2,7 +2,10 @@ const path = require("path");
 const express = require("express");
 const socketio = require("socket.io");
 const Filter = require("bad-words");
-const { generateMessage } = require("./utils/messages");
+const {
+  generateMessage,
+  generateLocationMessage,
+} = require("./utils/messages");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,7 +37,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendLocation", ({ latitude, longitude }, callback) => {
-    io.emit("location", `https://google.com/maps?${latitude},${longitude}`);
+    io.emit(
+      "location",
+      generateLocationMessage(
+        `https://google.com/maps?${latitude},${longitude}`
+      )
+    );
     callback();
   });
 

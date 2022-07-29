@@ -22,10 +22,11 @@ socket.on("message", (message) => {
   messages.insertAdjacentHTML("beforeend", html);
 });
 
-socket.on("location", (locationURL) => {
-  console.log(locationURL, "--socket--");
+socket.on("location", (location) => {
+  console.log(location, "--socket--");
   const html = Mustache.render(locationMessageTemplate, {
-    url: locationURL,
+    url: location.url,
+    createdAt: moment(location.createdAt).format("h:mm a"),
   });
   messages.insertAdjacentHTML("beforeend", html);
 });
